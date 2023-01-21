@@ -2,9 +2,11 @@
     "domain": "stecamonitor",
     "name": "Steca Grid Monitor",
     "version": "1.0.0",
-    "documentation": "https://www.example.com",
+    "documentation": "https://github.com/dkgof/stecamonitor",
     "dependencies": [],
     "codeowners": ["@dkgof"],
     "requirements": [],
-    "iot_class": "local_polling"
+    "iot_class": "local_polling",
+    "issue_tracker": "https://github.com/dkgof/stecamonitor/issues",
+    "integration_type": "device"
   }
