@@ -28,7 +28,7 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
-from homeassistant.const import (ELECTRIC_POTENTIAL_VOLT, ELECTRIC_CURRENT_AMPERE, PERCENTAGE)
+from homeassistant.const import (PERCENTAGE, UnitOfElectricPotential, UnitOfPower, UnitOfElectricCurrent)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,28 +52,28 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         StecaGridSensor(coordinator, steca, SensorEntityDescription(
             key="acvoltage",
             name="AC Voltage",
-            native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
+            native_unit_of_measurement=UnitOfElectricPotential.VOLT,
             device_class=SensorDeviceClass.VOLTAGE,
             state_class=SensorStateClass.MEASUREMENT,
         )),
         StecaGridSensor(coordinator, steca, SensorEntityDescription(
             key="accurrent",
             name="AC Current",
-            native_unit_of_measurement=ELECTRIC_CURRENT_AMPERE,
+            native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
             device_class=SensorDeviceClass.CURRENT,
             state_class=SensorStateClass.MEASUREMENT,
         )),
         StecaGridSensor(coordinator, steca, SensorEntityDescription(
             key="dcvoltage",
             name="DC Voltage",
-            native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
+            native_unit_of_measurement=UnitOfElectricPotential.VOLT,
             device_class=SensorDeviceClass.VOLTAGE,
             state_class=SensorStateClass.MEASUREMENT,
         )),
         StecaGridSensor(coordinator, steca, SensorEntityDescription(
             key="dccurrent",
             name="DC Current",
-            native_unit_of_measurement=ELECTRIC_CURRENT_AMPERE,
+            native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
             device_class=SensorDeviceClass.CURRENT,
             state_class=SensorStateClass.MEASUREMENT,
         )),
