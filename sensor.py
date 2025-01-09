@@ -28,7 +28,7 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
-from homeassistant.const import (POWER_WATT, ELECTRIC_POTENTIAL_VOLT, ELECTRIC_CURRENT_AMPERE, PERCENTAGE)
+from homeassistant.const import (ELECTRIC_POTENTIAL_VOLT, ELECTRIC_CURRENT_AMPERE, PERCENTAGE)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         StecaGridSensor(coordinator, steca, SensorEntityDescription(
             key="acpower",
             name="AC Power",
-            native_unit_of_measurement=POWER_WATT,
+            native_unit_of_measurement=UnitOfPower.WATT,
             device_class=SensorDeviceClass.POWER,
             state_class=SensorStateClass.MEASUREMENT,
         )),
@@ -101,13 +101,15 @@ class StecaCoordinator(DataUpdateCoordinator):
         self.steca = steca
 
     async def _async_update_data(self):
-        try:
-            # Note: asyncio.TimeoutError and aiohttp.ClientError are already
-            # handled by the data update coordinator.
-            async with async_timeout.timeout(10):
-                return await self.hass.async_add_executor_job(self.steca.poll)
-        except:
-            _LOGGER.error("Error talking to StecaGrid inverter: %s", sys.exc_info())
+        for x in range(5):
+            _LOGGER.info("Attempting to poll stecagrid %i / 5", (x+1))
+            try:
+                # Note: asyncio.TimeoutError and aiohttp.ClientError are already
+                # handled by the data update coordinator.
+                async with async_timeout.timeout(10):
+                    return await self.hass.async_add_executor_job(self.steca.poll)
+            except:
+                _LOGGER.error("Error talking to StecaGrid inverter: %s", sys.exc_info())
 
 class StecaGridSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coordinator, steca, description):
