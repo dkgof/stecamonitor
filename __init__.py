@@ -6,7 +6,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-
+from homeassistant.helpers.discovery import async_load_platform
 from .StecaAPI import StecaAPI
 
 from .const import (
@@ -37,7 +37,7 @@ async def async_setup(hass, config):
 
     # Add sensors
     hass.async_create_task(
-        hass.helpers.discovery.async_load_platform(CONF_PLATFORM, DOMAIN, conf, config)
+        async_load_platform(hass, CONF_PLATFORM, DOMAIN, conf, config)
     )
 
     return True
