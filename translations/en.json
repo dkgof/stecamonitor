@@ -1,0 +1,14 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "StecaGrid Inverter",
+        "description": "Enter connection details for your StecaGrid inverter."
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the inverter",
+      "unknown": "Unknown error"
+    }
+  }
+}
